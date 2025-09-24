@@ -1,6 +1,5 @@
-// src/components/HomeHeader.tsx
-
 import headerImage from "@/assets/banner-home.jpg"
+
 export function HomeHeader() {
 
   return (

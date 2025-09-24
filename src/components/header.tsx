@@ -1,4 +1,5 @@
-import logo from '@/assets/logo.png' 
+import logo from "@/assets/logo.png"
+
 export default  function Header() {
   return (
     <header className="p-4 flex text-zinc-800 justify-between">
