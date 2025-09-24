@@ -1,7 +1,7 @@
 // src/layouts/RootLayout.tsx
 import { Outlet, ScrollRestoration, NavLink } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-
+import logo from "@/assets/logo.png"
 function Header() {
   return (
     <header role="banner" className="w-full border-b bg-white/80 backdrop-blur">
@@ -10,7 +10,7 @@ function Header() {
           {/* Dica: coloque o arquivo em public/logo.png */}
           <NavLink to="/" className="inline-flex items-center gap-2" aria-label="Ir para a página inicial">
             <img
-              src="/src/assets/logo.png"
+              src={logo}
               alt="BM Imports"
               width={128}
               height={32}
