@@ -1,7 +1,6 @@
 // src/components/HomeHeader.tsx
 
-
-
+import headerImage from "@/assets/banner-home.jpg"
 export function HomeHeader() {
 
   return (
@@ -57,7 +56,7 @@ export function HomeHeader() {
           <div className="relative">
             <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl ring-1 ring-white/10">
               <img
-                src="/src/assets/banner-home.jpg"
+                src={headerImage}
                 alt="Vitrine de produtos BM Imports"
                 className="h-full w-full object-cover"
                 loading="eager"
