@@ -37,7 +37,6 @@ const formatCurrency = (n: number) =>
 function normalizePrice(p: number | string): number {
   if (typeof p === "number") return p
   const raw = p.trim()
-  if (/^\d+$/.test(raw)) return Number(raw) / 100 // só dígitos = centavos
   const cleaned = raw.replace(/\./g, "").replace(",", ".")
   const n = Number(cleaned)
   return Number.isFinite(n) ? n : 0
