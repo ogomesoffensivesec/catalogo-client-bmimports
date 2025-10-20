@@ -14,6 +14,7 @@ export type Product = {
   slug?: string;
   description?: string | null;
   price: number;
+  showPrice: boolean;
   variant: Variant;
   active?: boolean;
   images?: { url: string; alt?: string | null }[] | string[];
@@ -69,7 +70,7 @@ export async function submitQuote(payload: {
   items: QuoteItem[];
   notes?: string;
 }): Promise<{ ok: true; id: string | number }> {
-  const res = await fetch(new URL("/api/public/quotes", BASE), {
+  const res = await fetch(new URL("/api/public/quote", BASE), {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),

@@ -84,12 +84,15 @@ export function ProductCard({ product, variant, className, onCta }: Props) {
           <CarouselPrevious />
           <CarouselNext />
         </Carousel>
-
-        <div className="space-y-1">
+        
+        {product.showPrice && (
+          <div className="space-y-1">
           <div className="text-2xl font-semibold leading-none">
             {formatCurrency(priceNumber)}
           </div>
         </div>
+        )}
+        
 
         {(product.seoDescription ?? product.description) ? (
           <p className="text-xs text-muted-foreground line-clamp-2">

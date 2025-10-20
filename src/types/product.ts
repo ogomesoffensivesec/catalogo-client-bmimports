@@ -8,5 +8,6 @@ export type UIProduct = {
   seoDescription?: string | null
   images?: Array<string | { url: string; alt?: string | null }>
   price: number | string
+  showPrice: boolean
   active?: boolean
 }
