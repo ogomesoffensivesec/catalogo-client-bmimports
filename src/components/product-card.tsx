@@ -17,10 +17,9 @@ import {
 } from "@/components/ui/carousel"
 import { ShoppingCart } from "lucide-react"
 import type { UIProduct } from "@/types/product"
+import { ProductImage } from "./product-image"
 
 export type ProductVariant = "ready" | "imported"
-
-
 
 type Props = {
   product: UIProduct
@@ -68,18 +67,34 @@ export function ProductCard({ product, variant, className, onCta }: Props) {
       <CardContent className="space-y-3">
         <Carousel className="rounded-md border">
           <CarouselContent>
-            {showImages.map((src, idx) => (
-              <CarouselItem key={`${String(product.id)}-${idx}`} className="p-2">
-                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-md bg-muted">
-                  <img
-                    src={src}
+            {showImages.map((src, idx) => {
+              let finalImageUrl
+
+              // Se for um caminho local (placeholder), usa direto
+              if (src.startsWith('/')) {
+                finalImageUrl = src
+              }
+              // Se for uma URL absoluta (começa com http), otimiza
+              else if (src.startsWith('http')) {
+                finalImageUrl = `/api/optimize-image?url=${encodeURIComponent(src)}`
+              }
+              // Se for um caminho relativo (da API), constrói a URL e otimiza
+              else {
+                const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+
+                const absoluteUrl = `${API_BASE_URL.replace(/\/$/, '')}/${src.replace(/^\//, '')}`
+                finalImageUrl = `/api/optimize-image?url=${encodeURIComponent(absoluteUrl)}`
+              }
+
+              return (
+                <CarouselItem key={`${String(product.id)}-${idx}`} className="p-2">
+                  <ProductImage
+                    src={finalImageUrl}
                     alt={`${product.name} - imagem ${idx + 1}`}
-                    loading="lazy"
-                    className="h-full w-full object-cover"
                   />
-                </div>
-              </CarouselItem>
-            ))}
+                </CarouselItem>
+              )
+            })}
           </CarouselContent>
           <CarouselPrevious />
           <CarouselNext />
@@ -87,13 +102,12 @@ export function ProductCard({ product, variant, className, onCta }: Props) {
         
         {product.showPrice && (
           <div className="space-y-1">
-          <div className="text-2xl font-semibold leading-none">
-            {formatCurrency(priceNumber)}
+            <div className="text-2xl font-semibold leading-none">
+              {formatCurrency(priceNumber)}
+            </div>
           </div>
-        </div>
         )}
         
-
         {(product.seoDescription ?? product.description) ? (
           <p className="text-xs text-muted-foreground line-clamp-2">
             {product.seoDescription ?? product.description}
